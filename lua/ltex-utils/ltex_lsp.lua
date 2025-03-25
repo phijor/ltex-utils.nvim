@@ -18,7 +18,7 @@ function M.get_ltex(bufnr)
 	bufnr = bufnr or vim.api.nvim_get_current_buf()
 
 	for _, client in ipairs(vim.lsp.get_active_clients({ buffer = bufnr })) do
-		if client.name == 'ltex' then
+		if client.name == 'ltex' or client.name == 'ltex_plus' then
 			return client
 		end
 	end
