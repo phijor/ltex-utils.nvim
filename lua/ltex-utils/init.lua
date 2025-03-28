@@ -62,11 +62,13 @@ local function autocmd_ltex()
 	vim.api.nvim_create_autocmd("User", {
 		pattern = "TelescopePreviewerLoaded",
 		callback = function(args)
+      if not args or not args.data or not args.data.bufname then
+        return
+      end
+
 			---@type string
-			if args.data.bufname == nil then
-				return
-			end
-			local extension = args.data.bufname:match("%.(%w+)$")
+      local bufname = args.data.bufname
+			local extension = bufname:match("%.(%w+)$")
 			if extension == "md" or extension == "tex" then
 				vim.wo.number = Config.rule_ui.previewer_line_number
 				vim.wo.wrap = Config.rule_ui.previewer_wrap
